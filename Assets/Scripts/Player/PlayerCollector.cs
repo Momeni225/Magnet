@@ -9,7 +9,7 @@ public class PlayerCollector : MonoBehaviour
         {
             collectedBallCount++;
             Debug.Log("Collected Ball count "+ collectedBallCount);
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
         }
     }
 }
