@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class BallCollector : MonoBehaviour
 {
-
     private BallStorageManager ballStorageManager;
 
     private void Start()
@@ -13,14 +12,22 @@ public class BallCollector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Collectible"))
-        {
-            ballStorageManager.StoreBall(other.gameObject);
-            Collider ballCollider = other.GetComponent<Collider>();
-            ballCollider.enabled=false;
+        if (!other.CompareTag("Collectible"))
+            return;
 
-            Debug.Log(
-                "Stored Ball");
+        Collider ballCollider =
+            other.GetComponent<Collider>();
+
+        if (ballCollider != null)
+        {
+            ballCollider.enabled = false;
         }
+
+        Debug.Log(
+            "Collect Ball ID : " +
+            other.GetInstanceID());
+
+        ballStorageManager.StoreBall(
+            other.gameObject);
     }
 }

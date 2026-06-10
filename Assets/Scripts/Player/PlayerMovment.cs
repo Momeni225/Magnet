@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
+    private GameManager gameManager;
     public float forwardMovmentSpeed =5f;
     public float horizontalMovementSpeed=5f;
     public bool canMoveForward=true;

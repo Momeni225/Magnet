@@ -1,30 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class BallSpawner : MonoBehaviour
 {
-   [SerializeField] private GameObject ballPrefab;
-   [SerializeField] private int rawCount=3;
-   [SerializeField] private int columnCount=5;
-   [SerializeField] private float spacing=1.5f;
+    [SerializeField]
+    private GameObject ballPrefab;
+
+    [SerializeField]
+    private Transform[] spawnPoints;
+
+    [SerializeField]
+    private int ballsPerRow = 5;
+
+    [SerializeField]
+    private float horizontalSpacing = 1f;
+
     private void Start()
     {
-        SpawnBall();
+        SpawnRows();
     }
-    private void SpawnBall()
+
+    private void SpawnRows()
     {
-        for (int row =0; row < rawCount; row++)
+        foreach (Transform currentSpawnPoint in spawnPoints)
         {
-            for (int column=0; column< columnCount; column++)
-            {
-                Vector3 spawnPosition = transform.position+new Vector3(column*spacing,0f,row*spacing);
-                
-                Instantiate(ballPrefab,
+            SpawnRow(currentSpawnPoint);
+        }
+    }
+
+    private void SpawnRow(Transform spawnPoint)
+    {
+        float startX =
+            -(ballsPerRow - 1) * horizontalSpacing * 0.5f;
+
+        for (int ballIndex = 0;
+             ballIndex < ballsPerRow;
+             ballIndex++)
+        {
+            Vector3 spawnPosition =
+                spawnPoint.position;
+
+            spawnPosition.x +=
+                startX +
+                ballIndex * horizontalSpacing;
+
+            Instantiate(
+                ballPrefab,
                 spawnPosition,
                 Quaternion.identity);
-            }
         }
     }
 }

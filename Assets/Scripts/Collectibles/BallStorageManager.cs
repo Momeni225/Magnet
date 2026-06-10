@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class BallStorageManager : MonoBehaviour
 {
-
     [SerializeField]
     private Transform ballStorageTransform;
 
@@ -12,7 +11,30 @@ public class BallStorageManager : MonoBehaviour
 
     public void StoreBall(GameObject collectedBall)
     {
+        if (storedBalls.Contains(collectedBall))
+        {
+            Debug.Log(
+                "BALL ALREADY STORED : " +
+                collectedBall.GetInstanceID());
+
+            return;
+        }
+
+        Debug.Log(
+            "StoreBall Called For : " +
+            collectedBall.name +
+            " ID : " +
+            collectedBall.GetInstanceID());
+
+        Debug.Log(
+            "Before Add : " +
+            storedBalls.Count);
+
         storedBalls.Add(collectedBall);
+
+        Debug.Log(
+            "After Add : " +
+            storedBalls.Count);
 
         collectedBall.transform.SetParent(
             ballStorageTransform);
@@ -39,15 +61,14 @@ public class BallStorageManager : MonoBehaviour
     {
         return storedBalls.Count;
     }
-    
+
     public List<GameObject> GetStoredBalls()
     {
-        Debug.Log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDtroedt balls count"+ storedBalls.Count);
         return storedBalls;
     }
-    public void CleaStoredBalls()
+
+    public void ClearStoredBalls()
     {
         storedBalls.Clear();
     }
 }
-
