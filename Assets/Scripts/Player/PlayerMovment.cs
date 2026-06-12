@@ -25,6 +25,7 @@ public class PlayerMovment : MonoBehaviour
             transform.Translate(Vector3.forward*
             forwardMovmentSpeed*Time.deltaTime);
         }
+     
         Vector3 pos = transform.position;
         pos.x=Mathf.Clamp(pos.x,-8f,8f);
         transform.position=pos;
